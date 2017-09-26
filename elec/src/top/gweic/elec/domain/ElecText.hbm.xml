@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="top.gweic.elec.domain.ElecText" table="Elec_Text">
+		<id name="textID" column="textID" type="string">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="textName" column="textName" type="string"></property>
+		<property name="textDate" column="textDate" type="date"></property>
+		<property name="textRemark" column="textRemark" type="string"></property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 开启开发模式 -->
+	<constant name="struts.devMode" value="false"/>
+	<!-- 设置资源文件信息 -->
+	<!-- <constant name="struts.custom.i18n.resources" value="message"></constant> -->
+	<!-- 设置UI主题，去掉struts2提供的样式，设置简单主题样式，由美工添加样式-->
+	<constant name="struts.ui.theme" value="simple"/>
+	<!-- 改变struts方法的后缀，从action改变的成do -->
+	<constant name="struts.action.extension" value="do"/>
+	<!-- 系统管理 -->
+	<package name="system" extends="struts-default" namespace="/system">
+	
+		<!-- 全局转发 -->
+		<global-results>
+			<result name="close">/close.jsp</result>
+		</global-results>
+		<action name="elecTextAction_*" class="elecTextAction" method="{1}">
+			<result name="save">/system/textAdd.jsp</result>
+		</action>
+		
+		
+		<!-- 系统登录 -->
+		<action name="elecMenuAction_*" class="elecMenuAction" method="{1}">
+			<result name="menuHome">/WEB-INF/page/menu/home.jsp</result>
+			<result name="title">/WEB-INF/page/menu/title.jsp</result>
+			<result name="left">/WEB-INF/page/menu/left.jsp</result>
+			<result name="change">/WEB-INF/page/menu/change.jsp</result>
+			<result name="loading">/WEB-INF/page/menu/loading.jsp</result>
+			<result name="logout" type="redirect">/index.jsp</result>
+			<result name="alermStation">/WEB-INF/page/menu/alermStation.jsp</result>
+			<result name="alermDevice">/WEB-INF/page/menu/alermDevice.jsp</result>
+		</action>
+		
+		<!-- 运行监控 -->
+		<action name="elecCommonMsgAction_*" class="elecCommonMsgAction" method="{1}">
+			<result name="home">/WEB-INF/page/system/actingIndex.jsp</result>
+			<result name="save" type="redirectAction">
+				<param name="actionName">elecCommonMsgAction_home.do</param>
+			</result>
+		</action>
+		
+		<!-- 导出设置 -->
+		<action name="elecExportFieldsAction_*" class="elecExportFieldsAction" method="{1}">
+			<result name="setExportExcel">/WEB-INF/page/system/exportExcel.jsp</result>
+		</action>
+		
+		<!-- 数据字典 -->
+		<action name="elecSystemDDLAction_*" class="elecSystemDDLAction" method="{1}">
+			<result name="home">/WEB-INF/page/system/dictionaryIndex.jsp</result>
+			<result name="edit">/WEB-INF/page/system/dictionaryEdit.jsp</result>
+			<result name="save" type="redirectAction">elecSystemDDLAction_home.do</result>
+		</action>
+		
+		<!-- 用户管理 -->
+		<action name="elecUserAction_*" class="elecUserAction" method="{1}">
+			<result name="home">/WEB-INF/page/system/userIndex.jsp</result>
+			<result name="add">/WEB-INF/page/system/userAdd.jsp</result>
+			<result name="edit">/WEB-INF/page/system/userEdit.jsp</result>
+			<result name="delete" type="redirectAction">
+				<param name="actionName">elecUserAction_home.do</param>
+			</result>
+		</action>
+	</package>
+</struts>

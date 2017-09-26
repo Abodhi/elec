@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       						http://www.springframework.org/schema/beans/spring-beans.xsd
+       						http://www.springframework.org/schema/aop 
+       						http://www.springframework.org/schema/aop/spring-aop.xsd
+       						http://www.springframework.org/schema/context 
+       						http://www.springframework.org/schema/context/spring-context.xsd
+       						http://www.springframework.org/schema/tx 
+       						http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 配置注解扫描 -->
+	<context:component-scan base-package="top.gweic.elec"/>
+	<!-- 配置数据源 -->
+	
+	<!-- 配置Hibernate工厂类，生产session对象 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<!-- 一种是配置属性 -->
+		<!-- 一种加载Hibernate配置文件 -->
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+	</bean>
+	
+	<!-- Hibernate事物管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 使用注解配置事物管理 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- 使用配置 
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" isolation="DEFAULT" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="find*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* top.gweic.elec.service.*.*(..))"/>
+	</aop:config> -->
+</beans>
